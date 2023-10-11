@@ -13,7 +13,7 @@ public class SolarRequestClient {
         Producer<String, String> producer = new KafkaProducer<String, String>(properties);
 
         String topic = "solar-requests";
-        String address = "Land, Stadt, Straße, Hausnummer";cfjffdfdfkz
+        String address = "Land, Stadt, Straße, Hausnummer";
         double solarPower = 5000.0; // Leistung der Solaranlage in Watt
 
         // Nachricht erstellen (z. B. als JSON)
