@@ -24,7 +24,7 @@ public class Consumer {
             properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
             properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
             properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-            properties.setProperty("group.id", consumerGroupID);
+            properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupID);
 
             final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
