@@ -1,9 +1,6 @@
 package com.example.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +14,19 @@ public class Consumer {
             //create Logger
             final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-            final String bootstrapServers = "localhost:9092";
-            final String consumerGroupID = "cr";
+            String bootstrapServers = "localhost:9092";
+            String consumerGroupID = "a";
 
             Properties properties = new Properties();
-            properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-            properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-            properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-            properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupID);
+            properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+            properties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupID);
+            properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+            properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
-            final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
-            String topic = "meine-topics";
+            KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
+
+            String topic = "meine_topics";
             consumer.subscribe(Arrays.asList(topic));
 
             while (true) {
@@ -41,7 +39,6 @@ public class Consumer {
                             "Partition: " + record.partition() + ", " +
                             "Offset: " + record.offset() +
                             "\n");
-                    System.out.println("ok!");
                 }
 
             }

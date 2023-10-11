@@ -1,7 +1,6 @@
 package kafkaAdresse;
 
 import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.protocol.types.Field;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,7 @@ public class adresseConsumer {
                 }
                 int solarPower = Integer.parseInt(parts[4]);
 
-                System.out.println("Anfrage empfangen: Adresse=" + address + ", Solarleistung=" + solarPower + "\n");
+                System.out.println("Anfrage empfangen: Adresse = " + address + ", Solarleistung = " + solarPower + "\n");
 
                 logger.info("neue Nachricht: \n" +
                         "Key: " + record.key() + ", " +

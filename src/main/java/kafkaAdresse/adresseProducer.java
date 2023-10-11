@@ -22,7 +22,7 @@ public class adresseProducer {
         final Producer<String, String> producer = new KafkaProducer<String, String>(prop);
 
         String topic = "anfrage-topic"; // Name des Kafka-Themas für Anfragen
-        String address = "Land, Stadt, Straße, Hausnummer";
+        String address = "D, Stuttgart, Namurstraße, 4 ";
         int solarPower = 5000; // Leistung der Solaranlage in Watt
 
         String message = address + "," + solarPower;
