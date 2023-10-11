@@ -21,7 +21,7 @@ public class Producer {
         final KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
         String topic = "meine_topics";
-        String message = "Hello, Kafka!";
+        String message = "Hello,zu Kafka!";
 
         //ProducerRecord
         ProducerRecord<String, String> record = new ProducerRecord<>(topic, message);
@@ -32,7 +32,7 @@ public class Producer {
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                 if(e==null){
                     logger.info(
-                            "hat geklappt \n" 
+                            "hat geklappt \n"
                                     + "Topic: " + recordMetadata.topic()
                                     + ", Partition: " + recordMetadata.partition() + ", "
                                     + "Offset: " + recordMetadata.offset() 
