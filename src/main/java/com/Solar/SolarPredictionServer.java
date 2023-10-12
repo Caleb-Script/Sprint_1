@@ -8,9 +8,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -33,7 +30,7 @@ public class SolarPredictionServer {
         try {
             // Adresse und Leistung der Solaranlage
             String address = "Namurstraße 4 70374 Stuttgart";
-            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8.toString());
+            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
             int solarPower = 5000;
 
             // Erstellen Sie die API-Anfrage-URL mit Adresse und Leistung
@@ -46,7 +43,7 @@ public class SolarPredictionServer {
             // API-Anfrage senden und Antwort abrufen
             String response = EntityUtils.toString(httpClient.execute(httpGet).getEntity());
 
-            // Extrahieren Sie die Solarprognosewerte aus der Antwort (Beispielannahme)
+            // Extrahieren Sie die Solarprognosewerte aus der Antwort
             String solarPrediction = extractSolarPrediction(response);
 
             // Nachricht an Kafka senden
@@ -56,32 +53,15 @@ public class SolarPredictionServer {
             producer.close();
         }  catch (UnsupportedEncodingException e) {
             // Hier können Sie den Fehler behandeln oder die Ausnahme auslösen, falls erforderlich
-            e.printStackTrace(); // Hier wird die Ausnahme einfach gedruckt
+            System.out.println("Error: "+e); // Hier wird die Ausnahme einfach gedruckt
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error: "+e);
         }
     }
 
     private static String extractSolarPrediction(String response) {
         try {
-            Document doc = Jsoup.parse(response);
-            // Nehmen wir an, Sie möchten den Inhalt aus einem HTML-Tag mit der ID "solar-prediction" extrahieren.
-            Element solarPredictionElement = doc.getElementById("solar-prediction");
-            if (solarPredictionElement != null) {
-                String solarPrediction = solarPredictionElement.text();
-                return "Solarprognose: " + solarPrediction;
-            } else {
-                return "Fehler: Solarprognose nicht gefunden";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Fehler: Fehler bei der Extraktion der Solarprognose";
-        }
-    }
-    private static String extractSolarPrediction2(String response) {
-        try {
         // Verwenden Sie eine JSON-Verarbeitungsbibliothek, um das JSON-Objekt aus der API-Antwort zu extrahieren.
-        // Nehmen wir an, Sie verwenden die Jackson-Bibliothek:
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(response);
 
@@ -99,7 +79,7 @@ public class SolarPredictionServer {
         }
     } catch (Exception e) {
         // Hier können Sie Fehlerbehandlung hinzufügen, wenn beim Extrahieren der Prognose ein Fehler auftritt.
-        e.printStackTrace();
+            System.out.println("Error: "+e);
         System.out.println("API-Antwort: " + response);
         return "Fehler: Fehler bei der Extraktion der Solarprognose";
     }
