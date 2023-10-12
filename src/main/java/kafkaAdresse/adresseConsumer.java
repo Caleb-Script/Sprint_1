@@ -9,8 +9,13 @@ import org.slf4j.LoggerFactory;
 import java.util.Properties;
 import java.util.Arrays;
 
-public class adresseConsumer {
-    public static void main(String[] args) {
+public class adresseConsumer implements Runnable {
+    public adresseConsumer() {
+
+    }
+
+    @Override
+    public void run() {
 
         Logger logger = LoggerFactory.getLogger(Consumer.class);
 

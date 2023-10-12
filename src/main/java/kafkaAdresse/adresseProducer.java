@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class adresseProducer {
-    public static void main(String[] args) {
+public class adresseProducer implements Runnable{
+    @Override
+    public void run() {
 
 
 
@@ -40,6 +41,4 @@ public class adresseProducer {
 
         producer.close();
     }
-
-
 }
